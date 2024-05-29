@@ -11,6 +11,7 @@ use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Widgets;
+use GeoSot\FilamentEnvEditor\FilamentEnvEditorPlugin;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -26,7 +27,8 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->plugins([
-                FilamentShieldPlugin::make()
+                FilamentShieldPlugin::make(),
+                FilamentEnvEditorPlugin::make()
             ])
             ->id('admin')
             ->path('admin')
