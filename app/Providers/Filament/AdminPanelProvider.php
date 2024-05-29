@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Models\User;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -20,6 +21,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Joaopaulolndev\FilamentGeneralSettings\FilamentGeneralSettingsPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -31,7 +33,16 @@ class AdminPanelProvider extends PanelProvider
                 FilamentShieldPlugin::make(),
                 FilamentEnvEditorPlugin::make(),
                 SpatieLaravelTranslatablePlugin::make()
-                    ->defaultLocales(config('app.locales'))
+                    ->defaultLocales(config('app.locales')),
+                FilamentGeneralSettingsPlugin::make()
+                    ->setTitle('Настройки')
+                    ->setIcon('heroicon-o-adjustments-horizontal')
+                    ->canAccess(function () {
+                        /** @var User $user */
+                        $user = auth()->user();
+
+                        return $user->hasRole('super_admin');
+                    })
             ])
             ->id('admin')
             ->path('admin')
