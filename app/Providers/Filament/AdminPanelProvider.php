@@ -9,6 +9,7 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
+use Filament\SpatieLaravelTranslatablePlugin;
 use Filament\Support\Colors\Color;
 use Filament\Widgets;
 use GeoSot\FilamentEnvEditor\FilamentEnvEditorPlugin;
@@ -28,7 +29,9 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->plugins([
                 FilamentShieldPlugin::make(),
-                FilamentEnvEditorPlugin::make()
+                FilamentEnvEditorPlugin::make(),
+                SpatieLaravelTranslatablePlugin::make()
+                    ->defaultLocales(config('app.locales'))
             ])
             ->id('admin')
             ->path('admin')

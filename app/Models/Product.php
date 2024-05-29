@@ -4,10 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTranslations;
+
+    public array $translatable = [
+        'title',
+        'description'
+    ];
 
     protected $fillable = [
         'title',
@@ -19,7 +25,9 @@ class Product extends Model
 
     protected $casts = [
         'price' => 'float',
-        'is_active' => 'bool'
+        'is_active' => 'bool',
+        'title' => 'array',
+        'description' => 'array'
     ];
 
     protected $attributes = [
